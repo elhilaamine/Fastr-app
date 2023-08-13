@@ -1,0 +1,265 @@
+<style>
+  .custom-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .green-text {
+    color: brightgreen; /* or you can use a HEX or RGB value if you prefer */
+    font-weight: bold; /* this makes the text bold */
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .dropdown-button {
+    padding: 10px 50px;
+    background-color: #1268e9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    font-family: Arial, sans-serif; /* Added this line to set the font to Arial */
+    border-radius: 10px; /* Added this line to give the button rounded corners */
+  }
+
+  #smsCostText {
+    margin-top: 20px; /* 20px under the dropdown button */
+    font-weight: bold; /* text in bold */
+    font-size: 20px; /* 20px font size */
+    font-family: Arial, sans-serif; /* Arial font */
+  }
+
+  .dropdown-list li {
+    list-style: none; /* This removes the default bullet points */
+    padding-left: 0;
+    text-align: left; /* Ensures the content of the list item is left aligned */
+    display: flex; /* Use flexbox to manage children elements */
+    align-items: center;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .flag-icon {
+    display: inline-block; /* Makes it a block while keeping it inline */
+    margin-right: 8px; /* Spacing between the flag and the country name */
+    vertical-align: middle; /* To align the flag with the middle of the text */
+  }
+
+  .dropdown-button::after {
+    content: "\25BE";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 14px;
+  }
+
+  .dropdown-list {
+    position: absolute;
+    max-height: 180px !important; /* Assuming each option is around 30px in height */
+    overflow-y: auto;
+    width: 250px;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1;
+  }
+  .dropdown-list li:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+
+  .search-button {
+    display: none;
+    width: 250px;
+    height: 30px; /* Increase the height by 10px */
+    box-sizing: border-box;
+  }
+
+  .dropdown-list.active {
+    display: block;
+  }
+</style>
+
+<div class="custom-dropdown">
+  <button class="dropdown-button" id="dropdownButton">
+    Select your country
+  </button>
+  <input
+    type="text"
+    class="search-button"
+    id="searchButton"
+    placeholder="Search country"
+  />
+  <ul class="dropdown-list" id="dropdownList">
+    <li><span class="flag-icon flag-icon-ca"></span> Canada</li>
+    <li><span class="flag-icon flag-icon-"></span> Unknown</li>
+    <li><span class="flag-icon flag-icon-ad"></span> Andorra</li>
+    <li><span class="flag-icon flag-icon-ae"></span> United Arab Emirates</li>
+    <li><span class="flag-icon flag-icon-af"></span> Afghanistan</li>
+    <li><span class="flag-icon flag-icon-ag"></span> Antigua and Barbuda</li>
+    <li><span class="flag-icon flag-icon-ai"></span> Anguilla</li>
+    <li><span class="flag-icon flag-icon-al"></span> Albania</li>
+    <li><span class="flag-icon flag-icon-am"></span> Armenia</li>
+    <li><span class="flag-icon flag-icon-ao"></span> Angola</li>
+    <li><span class="flag-icon flag-icon-ar"></span> Argentina</li>
+    <li><span class="flag-icon flag-icon-as"></span> American Samoa</li>
+    <li><span class="flag-icon flag-icon-at"></span> Austria</li>
+    <li><span class="flag-icon flag-icon-au"></span> Australia</li>
+    <li><span class="flag-icon flag-icon-aw"></span> Aruba</li>
+    <li><span class="flag-icon flag-icon-az"></span> Azerbaijan</li>
+    <li><span class="flag-icon flag-icon-"></span> Unknown</li>
+    <li><span class="flag-icon flag-icon-ba"></span> Bosnia and Herzegovina</li>
+    <li><span class="flag-icon flag-icon-bb"></span> Barbados</li>
+    <li><span class="flag-icon flag-icon-bd"></span> Bangladesh</li>
+    <li><span class="flag-icon flag-icon-be"></span> Belgium</li>
+    <li><span class="flag-icon flag-icon-bf"></span> Burkina Faso</li>
+    <li><span class="flag-icon flag-icon-bg"></span> Bulgaria</li>
+    <li><span class="flag-icon flag-icon-bh"></span> Bahrain</li>
+    <li><span class="flag-icon flag-icon-bi"></span> Burundi</li>
+    <li><span class="flag-icon flag-icon-bj"></span> Benin</li>
+    <li><span class="flag-icon flag-icon-bm"></span> Bermuda</li>
+    <li><span class="flag-icon flag-icon-bn"></span> Brunei</li>
+    <li><span class="flag-icon flag-icon-bo"></span> Bolivia</li>
+    <li><span class="flag-icon flag-icon-br"></span> Brazil</li>
+    <li><span class="flag-icon flag-icon-bs"></span> Bahamas</li>
+    <li><span class="flag-icon flag-icon-bt"></span> Bhutan</li>
+    <li><span class="flag-icon flag-icon-bw"></span> Botswana</li>
+    <li><span class="flag-icon flag-icon-by"></span> Belarus</li>
+    <li><span class="flag-icon flag-icon-bz"></span> Belize</li>
+    <!-- Note: DR Congo might be CD or CG. Need to double-check -->
+    <li><span class="flag-icon flag-icon-cd"></span> DR Congo</li>
+    <!-- Note: Central Africa might not have a straightforward code -->
+    <li><span class="flag-icon flag-icon-"></span> Central Africa</li>
+    <li><span class="flag-icon flag-icon-cg"></span> Congo</li>
+    <li><span class="flag-icon flag-icon-ch"></span> Switzerland</li>
+    <!-- Note: Ivory Coast might be CI -->
+    <li><span class="flag-icon flag-icon-ci"></span> Ivory Coast</li>
+    <!-- Note: Not sure about Cook Islands -->
+    <li><span class="flag-icon flag-icon-"></span> Cook Islands</li>
+    <li><span class="flag-icon flag-icon-cl"></span> Chile</li>
+    <li><span class="flag-icon flag-icon-cm"></span> Cameroon</li>
+    <li><span class="flag-icon flag-icon-cn"></span> China</li>
+    <li><span class="flag-icon flag-icon-co"></span> Colombia</li>
+    <li><span class="flag-icon flag-icon-cr"></span> Costa Rica</li>
+    <li><span class="flag-icon flag-icon-cu"></span> Cuba</li>
+    <!-- Note: Cape Verde might be CV -->
+    <li><span class="flag-icon flag-icon-cv"></span> Cape Verde</li>
+    <li><span class="flag-icon flag-icon-cy"></span> Cyprus</li>
+    <li><span class="flag-icon flag-icon-cz"></span> Czech Republic</li>
+    <li><span class="flag-icon flag-icon-de"></span> Germany</li>
+  </ul>
+</div>
+
+<p id="smsCostText" style="display: none"></p>
+
+<script>
+  const dropdownButton = document.getElementById("dropdownButton");
+  const searchButton = document.getElementById("searchButton");
+  const dropdownList = document.getElementById("dropdownList");
+  const smsCostText = document.getElementById("smsCostText");
+
+  const countryCosts = {
+    Canada: "$0.03375",
+    Unknown: "$0.475",
+    Andorra: "$0.6256",
+    "United Arab Emirates": "$0.5187",
+    Afghanistan: "$1.3808",
+    "Antigua and Barbuda": "$0.4655",
+    Anguilla: "$0.62745",
+    Albania: "$0.43225",
+    Armenia: "$0.6574",
+    Angola: "$0.42135",
+    Argentina: "$0.3529",
+    "American Samoa": "$0.89345",
+    Austria: "$0.46505",
+    Australia: "$0.1782",
+    Aruba: "$0.49115",
+    Azerbaijan: "$1.55515",
+    "Bosnia and Herzegovina": "$0.399",
+    Barbados: "$0.5833",
+    Bangladesh: "$1.2602",
+    Belgium: "$0.49875",
+    "Burkina Faso": "$0.6313",
+    Bulgaria: "$0.58615",
+    Bahrain: "$0.1729",
+    Burundi: "$1.22455",
+    Benin: "$0.6864",
+    Bermuda: "$0.56335",
+    Brunei: "$0.095",
+    Bolivia: "$0.58",
+    Brazil: "$0.2845",
+    Bahamas: "$0.2494",
+    Bhutan: "$1.1918",
+    Botswana: "$0.47405",
+    Belarus: "$1.1975",
+    Belize: "$1.30055",
+    "DR Congo": "$0.798",
+    "Central Africa": "$0.57855",
+    Congo: "$0.9495",
+    Switzerland: "$0.3444",
+    "Ivory Coast": "$0.5961",
+    "Cook Islands": "$0.6631",
+    Chile: "$0.3092",
+    Cameroon: "$0.65695",
+    China: "$0.1748",
+    Colombia: "$0.1969",
+    "Costa Rica": "$0.1995",
+    Cuba: "$0.399",
+    "Cape Verde": "$0.5833",
+    Cyprus: "$0.4104",
+    "Czech Republic": "$0.2717",
+    Germany: "$0.4465",
+  };
+
+  dropdownButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdownButton.style.display = "none";
+    searchButton.style.display = "block";
+    dropdownList.classList.add("active");
+  });
+
+  searchButton.addEventListener("input", function () {
+    const searchValue = searchButton.value.toLowerCase();
+    const countryItems = dropdownList.getElementsByTagName("li");
+
+    for (const item of countryItems) {
+      const countryName = item.textContent.toLowerCase();
+      if (countryName.includes(searchValue)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    }
+  });
+
+  dropdownList.addEventListener("click", function (event) {
+    // Get the closest li element from the clicked target
+    const listItem = event.target.closest("li");
+    if (!listItem) return; // If, for some reason, a list item isn't found, just exit
+
+    const selectedCountry = listItem.textContent.trim(); // Use trim to eliminate any potential whitespace
+
+    if (countryCosts[selectedCountry]) {
+      smsCostText.innerHTML = `The SMS cost for ${selectedCountry} is <span class="green-	text">${countryCosts[selectedCountry]}</span>.`;
+      smsCostText.style.display = "block";
+    } else {
+      smsCostText.style.display = "none";
+    }
+
+    dropdownButton.style.display = "block";
+    searchButton.style.display = "none";
+    dropdownList.classList.remove("active");
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".custom-dropdown")) {
+      dropdownButton.style.display = "block";
+      searchButton.style.display = "none";
+      dropdownList.classList.remove("active");
+    }
+  });
+</script>
